@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }} | {{ block.super }}{% endblock %}
+
+{% block content %}
+    <div class="col-sm-6 col-sm-offset-3">
+    <h1>{{title}} <small>{{ post.timestamp | timesince }} ago</small></h1>
+
+    {{ post.title }}<br/>
+    {{ post.content|linebreaks }}<br/>
+    <a href="{% url 'posts:update' id=post.id %}" class="btn btn-default">Edit</a>
+    </div>
+
+{% endblock content %}
