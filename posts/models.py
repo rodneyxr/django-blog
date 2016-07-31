@@ -3,6 +3,9 @@ from django.core.urlresolvers import reverse
 
 
 class Post(models.Model):
+    class Meta:
+        ordering = ['-timestamp', 'updated']
+
     title = models.CharField(max_length=120)
     content = models.TextField()
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
