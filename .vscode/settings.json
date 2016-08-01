@@ -1,0 +1,7 @@
+{
+    // pip install pep8
+    "python.linting.pep8Enabled": true,
+    // pip install pep8   
+    // pip install --upgrade autopep8
+    "python.formatting.provider": "autopep8"
+}

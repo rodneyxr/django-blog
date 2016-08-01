@@ -8,7 +8,7 @@ from .models import Post
 
 
 def post_create(request):
-    form = PostForm(request.POST or None)
+    form = PostForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         post = form.save(commit=False)
         post.save()
@@ -19,6 +19,7 @@ def post_create(request):
     }
     return render(request, 'post_create.html', context)
 
+
 def post_detail(request, id):
     post = get_object_or_404(Post, id=id)
     context = {
@@ -26,6 +27,7 @@ def post_detail(request, id):
         'post': post
     }
     return render(request, 'post_detail.html', context)
+
 
 def post_list(request):
     queryset = Post.objects.all()
@@ -47,9 +49,10 @@ def post_list(request):
     }
     return render(request, 'post_list.html', context)
 
+
 def post_update(request, id):
     post = get_object_or_404(Post, id=id)
-    form = PostForm(request.POST or None, instance=post)
+    form = PostForm(request.POST or None, request.FILES or None, instance=post)
     if form.is_valid():
         post = form.save(commit=False)
         post.save()
@@ -61,15 +64,17 @@ def post_update(request, id):
     }
     return render(request, 'post_update.html', context)
 
+
 def post_delete(request, id):
     post = get_object_or_404(Post, id=id)
     post.delete()
     messages.success(request, 'Post sucessfully deleted')
     return redirect('posts:list')
 
+
 def listing(request):
     post_list = Post.objects.all()
-    paginator = Paginator(contact_list, 1) # Show 25 contacts per page
+    paginator = Paginator(contact_list, 1)  # Show 25 contacts per page
 
     page = request.GET.get('page')
     try:

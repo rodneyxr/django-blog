@@ -3,12 +3,14 @@
 {% block title %}{{ post.title }} | {{ block.super }}{% endblock %}
 
 {% block content %}
-    <div class="col-sm-6 col-sm-offset-3">
-    <h1>{{title}} <small>{{ post.timestamp | timesince }} ago</small></h1>
-
-    {{ post.title }}<br/>
-    {{ post.content|linebreaks }}<br/>
-    <a href="{% url 'posts:update' id=post.id %}" class="btn btn-default">Edit</a>
+    <div class="col-md-offset-2 col-md-">
+        <h1>{{title}} <small>{{ post.timestamp | timesince }} ago</small></h1>
+        {% if post.image %}
+        <img src="{{ post.image.url }}" class="img-responsive" />
+        {% endif %}
+        <p>{{ post.content | linebreaks }}</p>
+        <a href="{% url 'posts:list' %}" class="btn btn-default">Posts</a>
+        <a href="{% url 'posts:update' id=post.id %}" class="btn btn-primary">Edit</a>
+        <a href="{% url 'posts:delete' id=post.id %}" class="btn btn-danger">Delete</a>
     </div>
-
 {% endblock content %}
